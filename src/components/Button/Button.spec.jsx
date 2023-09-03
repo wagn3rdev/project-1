@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom'
 import { Button } from '.'
 import userEvent from '@testing-library/user-event'
-const { render, screen, fireEvent } = require("@testing-library/react")
+const { render, screen } = require("@testing-library/react")
 
 describe('<Button />', () => {
     it('should render the button with the text "Load more"', () => {
@@ -39,5 +39,11 @@ describe('<Button />', () => {
         const button = screen.getByRole('button', { name: /load more/i });
         expect(button).not.toBeDisabled();
         expect(button).toBeEnabled();
+    })
+
+    it('should match snapshot', () => {
+        const fn = jest.fn();
+        const { container } = render(<Button text="Load more" />)
+        expect(container.firstChild).toMatchSnapshot();
     })
 })
